@@ -8,7 +8,6 @@ phases:
     on-failure: ABORT
     runtime-versions:
       docker: 24
-      python: 3.7
   pre_build:
     on-failure: ABORT
     commands:
