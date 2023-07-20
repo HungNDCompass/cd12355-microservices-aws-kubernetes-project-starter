@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  shell: /bin/sh
+
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      docker: 24
+      python: 3.7
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo Login ECR.
+      - IMAGE_TAG=1.0.0
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+      - AWS_REPOSITORY="udacity_repo_${AWS_ACCOUNT_ID}"
+      - AWS_ECR="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+      - |
+        aws ecr get-login-password --region $AWS_DEFAULT_REGION | \
+        docker login --username AWS --password-stdin $AWS_ECR
+  build:
+    on-failure: ABORT
+    commands:
+      - docker build --tag "${AWS_ECR}/${AWS_ECR_REPOSITORY}:${IMAGE_TAG}" ./analytics
+      - docker push "${AWS_ECR}/${AWS_ECR_REPOSITORY}:${IMAGE_TAG}"

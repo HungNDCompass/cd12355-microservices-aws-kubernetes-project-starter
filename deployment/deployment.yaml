@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-deployment
+  labels:
+    app: p3-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: p3-app
+  template:
+    metadata:
+      labels:
+        app: p3-app
+    spec:
+      containers:
+        - name: app-container
+          image: 120044776512.dkr.ecr.us-east-1.amazonaws.com/120044776512_Udacity_Repo:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: DATABASE_SECRET
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: DATABASE_SECRET
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: DATABASE_CONFIG
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: DATABASE_CONFIG
+                  key: DB_PORT
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: DATABASE_CONFIG
+                  key: DB_NAME
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: APP_CONFIG
+                  key: APP_PORT
+            
