@@ -22,5 +22,5 @@ phases:
   build:
     on-failure: ABORT
     commands:
-      - docker build --tag "${AWS_ECR}/${AWS_ECR_REPOSITORY}:${IMAGE_TAG}" ./analytics
+      - docker build --tag "${AWS_ECR}/${AWS_REPOSITORY}:${IMAGE_TAG}" ./analytics
       - docker push "${AWS_ECR}/${AWS_ECR_REPOSITORY}:${IMAGE_TAG}"
