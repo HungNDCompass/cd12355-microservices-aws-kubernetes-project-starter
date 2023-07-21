@@ -16,38 +16,38 @@ spec:
     spec:
       containers:
         - name: app-container
-          image: 120044776512.dkr.ecr.us-east-1.amazonaws.com/120044776512_Udacity_Repo:latest
+          image: 120044776512.dkr.ecr.us-east-1.amazonaws.com/udacity_repo_120044776512:1.0.0
           ports:
             - containerPort: 80
           env:
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: DATABASE_SECRET
+                  name: database-secret
                   key: DB_USERNAME
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: DATABASE_SECRET
+                  name: database-secret
                   key: DB_PASSWORD
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: DATABASE_CONFIG
+                  name: database-config
                   key: DB_HOST
             - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: DATABASE_CONFIG
+                  name: database-config
                   key: DB_PORT
-            - name: DB_PASSWORD
+            - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: DATABASE_CONFIG
+                  name: database-config
                   key: DB_NAME
             - name: APP_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: APP_CONFIG
+                  name: app-config
                   key: APP_PORT
             
