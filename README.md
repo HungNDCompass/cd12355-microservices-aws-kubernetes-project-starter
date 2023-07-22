@@ -1,3 +1,6 @@
+## Github Repo:
+
+ [Link to Github repo](`https://github.com/HungParfait/cd12355-microservices-aws-kubernetes-project-starter`)
 ## How to deploy:
 - Step 1: Create K8s cluster with eksctl, all configuration written in `cluster.yaml` file.
 
